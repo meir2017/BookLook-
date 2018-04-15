@@ -1,0 +1,42 @@
+
+#titleBook{
+    font-size: 18px;
+    font-weight: bold;
+}
+#top-title{
+    text-align: center;
+}
+.s-bold{
+    font-size: 17px;
+    font-weight: bold;  
+}
+#writter{
+    font-size: 17px;
+    font-weight: bold; 
+}
+.g-button{
+    padding-left: 120px;;
+}
+#s-ISBN,#s-title,#s-author{
+    margin: 20px 2px;
+/* padding-right: 40px; */
+}
+.my-right{
+    height: 700px;
+    background-color: greenyellow;
+    float: left;
+}
+/* .my-lift{
+    height: 700px;
+    background-color: bisque;
+    float: left;
+} */
+.my-center{
+    height: 700px;
+    float: left;
+}
+#bookList{
+    font-size: 17px;
+    font-weight: bold; 
+    color:red;
+}

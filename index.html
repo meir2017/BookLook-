@@ -1,0 +1,63 @@
+
+
+
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="style.css">
+       <link rel="stylesheet" href="node_modules\bootstrap\dist\css\bootstrap.min.css">
+       <link rel="stylesheet" href="node_modules\font-awesome\css\font-awesome.min.css">
+        <title>book</title>
+        
+        
+    </head>
+    <body>
+    <br> <br>
+      <div class="container-fluid">
+
+<div class="col-5 my-right"> <br><br><br>
+        <div id="my-list">
+            </div> 
+         </div>
+    
+<div class="col-7 my-center">  
+        <h1 id="top-title">BookLook <span class="fa fa-eye"></span></h1>
+        <hr>
+        <div class="row">
+            <div   class="col-2 s-bold"> </div>
+            <input type="text" class="form-control col-7" id="item">
+        </div>
+        <div class="row g-button">
+            
+            <button  id="s-ISBN"class="btn btn-outline-primary ">Search By Isbn</button>
+            <button  id="s-title"class="btn btn-outline-danger ">Search By Title</button>
+            <button  id="s-author"class="btn btn-outline-secondary">Search By Author</button>
+        </div>
+        <div id="titleBook"></div>
+        <div id="description"></div>
+        <div id="writter"></div>
+        <div id="picBook"></div> </div>
+<!-- <div class="col-2 my-lift">   </div> -->
+
+         
+                     
+    </div>
+     <script src="node_modules\jquery\dist\jquery.min.js"></script>
+    <script src="script.js"></script>
+    </body>
+    </html>
+
+
+
+    <!-- var show_book =function(book) {
+        book_img=book.volumeInfo.imageLinks.smallThumbnail;
+        $('#titleBook').text(book.volumeInfo.title)
+        $('#description').text(book.volumeInfo.description)
+        $('#writter').text("written by: "+book.volumeInfo.authors)
+        
+        $('#picBook').empty();
+       $('#picBook').append('<img src='+book_img+' class="img-responsive" alt="image book">' )
+      } -->
