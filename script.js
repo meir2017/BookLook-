@@ -105,8 +105,10 @@ var inAuthor = function (toFind) {
 };
 
 $('#s-ISBN').click(function(){
-
-  fetch($('#item').val());
+if($('#item').val().length>5)
+   fetch($('#item').val());
+   else
+   alert("isbn short")
 })
 $('#s-title').click(function(){
 
