@@ -23,8 +23,10 @@
 }
 .my-right{
     height: 700px;
-    background-color: greenyellow;
+    background-color:wheat;
     float: left;
+    border-radius: 20px;
+border: teal solid 2px;
 }
 /* .my-lift{
     height: 700px;

@@ -5,8 +5,8 @@ var myAPIKey="AIzaSyAaljk6lCARUKHv2eDVst8P403T0lNhfLs";
 
 var show_book =function(book) {
   clearingVariable();
-  console.log(book)
-  debugger
+  console.log(book+"  the book  ")
+
   $('#picBook').empty();
   if(book.volumeInfo.title!=undefined)
   $('#titleBook').text(book.volumeInfo.title)
@@ -22,10 +22,16 @@ var show_book =function(book) {
   $('#writter').text("written by: "+book.volumeInfo.authors)
   else
   $('#writter').text("no authors")
-  if(book.volumeInfo.imageLinks.smallThumbnail!=undefined)
-  $('#picBook').append('<img src='+book.volumeInfo.imageLinks.smallThumbnail+' class="img-responsive" alt="image book">' )
+  
+  
+  if(book.volumeInfo.imageLinks!=undefined)
+  {
+    if(book.volumeInfo.imageLinks.smallThumbnail!=undefined)
+    $('#picBook').append('<img src='+book.volumeInfo.imageLinks.smallThumbnail+' class="img-responsive" alt="image book">' )
+    else
+    $('#picBook').append('<img src="nopic.jpg" class="img-responsive" alt="image book">' )  }
   else
-  $('#picBook').text("no pic")
+  $('#picBook').append('<img src="nopic.jpg" class="img-responsive" alt="image book">' )
 }
 
 
@@ -39,7 +45,6 @@ var show_book =function(book) {
         }
         $('#my-list').append('</ol>')
         $('li').click(function (event) {
-       // alert(event.target.id)
         show_book(items[event.target.id])
      });
   } 
@@ -51,35 +56,51 @@ var fetch = function (toFind) {
    method: "GET",
    //url: 'https://www.googleapis.com/books/v1/volumes?q=isbn:0439023521',
    url: 'https://www.googleapis.com/books/v1/volumes?q=isbn:'+toFind+'',
+      success: function(data) {
+        console.log(data)
+       if(data.totalItems!=0)
+       {
+        if (data.items.length>10)
+        size=10;
+        else
+        size=data.items.length;
+        listBook(size,data.items)
+        show_book(data.items[0])
+       }
+       else
+       $('#titleBook').text("no book")
+       },
+       error: function(jqXHR, textStatus, errorThrown) {
+       console.log(textStatus);
+     }
+   }); 
+  };
 
-    success: function(data) {
-      console.log(data);
-      show_book(data.items[0])
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-      console.log(textStatus);
-    }
-  }); 
-};
+
 
 var inTitle = function (toFind) {
   clearingVariable();
     $.ajax({
     method: "GET",
-    url: 'https://www.googleapis.com/books/v1/volumes?q='+toFind+'+intitle',
-       success: function(data) {
-       console.log(data)
-       if (data.items.length>10)
-           size=10;
-           else
-           size=data.items.length;
+    url: 'https://www.googleapis.com/books/v1/volumes?q=intitle:'+toFind+'',
+    success: function(data) {
+      console.log(data)
+     if(data.totalItems!=0)
+     {
+      if (data.items.length>10)
+      size=10;
+      else
+      size=data.items.length;
       listBook(size,data.items)
       show_book(data.items[0])
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-      console.log(textStatus);
-    }
-  }); 
+     }
+     else
+     $('#titleBook').text("no book")
+     },
+     error: function(jqXHR, textStatus, errorThrown) {
+     console.log(textStatus);
+   }
+ }); 
 };
 
 var inAuthor = function (toFind) {
@@ -88,15 +109,22 @@ var inAuthor = function (toFind) {
 //alert('https://www.googleapis.com/books/v1/volumes?q='+toFind+'+inauthor:keyes&key='+myAPIKey+'')
   $.ajax({
     method: "GET",
-    url: 'https://www.googleapis.com/books/v1/volumes?q='+toFind+'+inauthor:keyes&key='+myAPIKey+'',
+  //  url: 'https://www.googleapis.com/books/v1/volumes?q='+toFind+'+inauthor:keyes&key='+myAPIKey+'',
+  url: 'https://www.googleapis.com/books/v1/volumes?q=inauthor:'+toFind+'',
+
     success: function(data) {
       console.log(data)
+     if(data.totalItems!=0)
+     {
       if (data.items.length>10)
-          size=10;
-          else
-          size=data.items.length;
-     listBook(size,data.items)
-     show_book(data.items[0])
+      size=10;
+      else
+      size=data.items.length;
+      listBook(size,data.items)
+      show_book(data.items[0])
+     }
+     else
+     $('#titleBook').text("no book")
      },
      error: function(jqXHR, textStatus, errorThrown) {
      console.log(textStatus);
@@ -108,7 +136,7 @@ $('#s-ISBN').click(function(){
 if($('#item').val().length>5)
    fetch($('#item').val());
    else
-   alert("isbn short")
+   $('#titleBook').text("isbn short")
 })
 $('#s-title').click(function(){
 
@@ -135,3 +163,10 @@ function clearingVariable(){
 }
 
 
+$(document).ajaxStart(function(){
+  $('#Loading').show();
+});
+
+$(document).ajaxComplete(function(){
+  $('#Loading').hide();
+});
